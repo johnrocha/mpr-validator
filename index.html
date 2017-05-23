@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MobintDev | MPRLogin</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+    <body class="gray-bg">
+    <div id="wrapper">
+
+        <div id="page-wrapper" class="blank-canvas">
+            <div class="row border-bottom"></div>
+            <h1 class="text-center loginscreen animated fadeInDown"><b>MPR - Validator</b></h1>
+            <div class="middle-box text-center loginscreen animated fadeInDown">
+                <div>
+                    <h2>EMP102 Object</h2>
+                </div>
+
+                <form class="m-t" role="form" name="idForm"  id="idForm" method="GET" action="#">
+                    <label id="dis" style="color: red"></label>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Usuário" id="fname">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Senha" name="senha" id="fpass">
+                    </div>
+                    <input type="submit" class="btn btn-primary block full-width m-b" value="Enviar">
+                </form>
+
+                </br>
+                <div id="simple-msg"></div>
+                <div id="raw-msg"></div>
+
+            </div>
+
+            <div class="right-box text-center loginscreen animated fadeInDown">
+                <div>
+                    <h2>Treino</h2>
+                </div>
+
+                <form class="m-t" role="form" name="idForm2"  id="idForm2" method="GET" action="#">
+                    <label id="dis" style="color: red"></label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="usuario" placeholder="Id" id="usuario">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Emp" name="emp" id="emp">
+                    </div><br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="dia" name="dia" id="diaTreino">
+                        <input type="text" class="form-control" placeholder="mes" name="mes" id="mesTreino">
+                        <input type="text" class="form-control" placeholder="ano" name="ano" id="anoTreino">
+                    </div>
+                    <input type="submit" class="btn btn-primary block full-width m-b" value="Enviar">
+                </form>
+
+                </br>
+                <div id="msgran"></div>
+                <div id="msgren"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/bootstrap.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#idForm").submit(function(e) {
+
+            var url = "http://treinoonline.locaweb.com.br/webservice/app_login.php?emp=102&key=FT3klUh75Sp@cFH93SZ";
+            var email = document.forms["idForm"]["email"].value;
+            var senha = document.forms["idForm"]["senha"].value;
+            $.ajax({
+                   type: "GET",
+                   url: url,
+                   data: $("#idForm").serialize(),
+                   success: function(data)
+                   {
+                       console.log(data);
+                       $("#simple-msg").html('<pre><code>'+'Status: '+data.status+'</br> Id: '+data.id+'</br> Emp: '+data.emp+'</br> Nome do Aluno: '+data.nome+'</br> Nome da Empresa: </br>'+data.nm_emp+'</code></pre>');
+                       $("#raw-msg").html('<pre><code class="prettyprint">'+JSON.stringify(data)+'</code></pre>');
+                       $("#usuario").val(data.id);
+                       $("#emp").val(data.emp);
+
+                   }
+                 });
+
+            e.preventDefault();
+        });
+
+        $("#idForm2").submit(function(e) {
+
+            var key = "FT3klUh75Sp@cFH93SZ";
+            var usuario = document.forms["idForm2"]["usuario"].value;
+            var emp = document.forms["idForm2"]["emp"].value;
+            var dia = document.forms["idForm2"]["dia"].value;
+            var mes = document.forms["idForm2"]["mes"].value;
+            var ano = document.forms["idForm2"]["ano"].value;
+            var url = "http://treinoonline.locaweb.com.br/webservice/app_treinodia.php?emp="+emp+"&amp;key="+key+"&amp;usuario="+usuario+"&amp;dia="+dia+"&amp;mes="+mes+"&amp;ano="+ano;
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: $("#idForm2").serialize(),
+                success: function(data)
+                {
+                    console.log(" ---> Retorno JSON: "+JSON.stringify((data)));
+                    console.log(" ---> Url Enviada: "+url);
+                    $("#msgran").html('<pre><code>'+'Status: '+data.ds_treino+'</br> Id: '+data.ds_modalidade+'</code></pre>');
+                    $("#msgren").html('<pre><code class="prettyprint">'+JSON.stringify(data)+'</code></pre>');
+                },
+                error: function (data, err, XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(JSON.stringify((data))+'ERRO: '+errorThrown);
+                    var r = jQuery.parseJSON(data.responseText);
+                    alert("Mensagem: " + r);
+                }
+            });
+
+            e.preventDefault();
+        });
+
+
+
+    </script>
+
+    </body>
+
+</html>

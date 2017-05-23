@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MeuRegistro | Login</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div id="wrapper">
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                </div>
+                <div class="navbar-header">
+                    <!--<a class="logo" href="index.html">
+                        <img src="img/meuregistro.png" height="30" alt="" style="margin-top: 10px; margin-left: 10px;">
+                    </a>-->
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <!--<li>
+                        <span>
+                                <img alt="image" class="img-circle" style="width: 80%" src="img/profile_small.jpg" />
+                            </span>
+                    </li>-->
+
+                    <!--<li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>-->
+                </ul>
+                <div id="horizontal-menu-collapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="http://hr-onboard.azurewebsites.net/help/index.html" target="_blank">
+                                Ajuda
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="middle-box text-center loginscreen animated fadeInDown">
+                <div>
+                    <a class="logo" href="index.html">
+                        <img src="img/meuregistro.png" height="60" alt="" style="margin-top: 10px; margin-left: 10px;">
+                    </a>
+
+                </div>
+
+            <form class="m-t" role="form" name="myForm" action="dashboard.html" onsubmit="return validateForm()" >
+                <label id="dis" style="color: red"></label>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="User" placeholder="Usuário" id="fname">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Senha" name="id" id="fpass">
+                </div>
+                <input type="submit" class="btn btn-primary block full-width m-b" value="Login">
+                <small>
+                    <a href="#" style="color: black; text-align: right">Esqueci a senha</a>
+                    <br/>
+                    <a href="#" style="color: black; text-align: right">Crie uma conta</a>
+                </small>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    var $form = $("form"),
+      $successMsg = $(".alert");
+    $form.h5Validate();
+    $form.on("submit", function (e) {
+        if ($form[0].checkValidity()) {
+            e.preventDefault();
+            $successMsg.show();
+        }
+    });
+
+
+
+
+    function validateForm() {
+        var x = document.forms["myForm"]["fname"].value;
+        var y = document.forms["myForm"]["fpass"].value;
+        if (x == "") {
+            alert("Campo deve estar preeenchido");
+            return false;
+        }
+        if (y == "") {
+            alert("Campo deve estar preeenchido");
+            return false;
+        }
+    }
+
+    </script>
+
+</body>
+
+</html>
